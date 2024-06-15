@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TODO List</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/styles.css">
+    <style>
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        header h1 {
+            margin: 0;
+        }
+
+        header input[type="text"] {
+            margin-right: 10px;
+        }
+
+        main {
+            margin-top: 20px;
+        }
+
+        .task-form {
+            margin-bottom: 20px;
+        }
+
+        .task-form input[type="text"] {
+            margin-right: 10px;
+        }
+
+        .modal-form input[type="text"] {
+            margin-bottom: 10px;
+        }
+
+        .modal-form button {
+            margin-right: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>TODO List</h1>
+        <div>
+            <input type="text" id="filter" placeholder="Filtrar por título" oninput="filterTasks()">
+            <button onclick="filterTasks()">Filtrar</button>
+        </div>
+    </header>
+    <main>
+        <form class="task-form" id="task-form">
+            <input type="text" id="task-title" placeholder="Título da Tarefa">
+            <input type="text" id="task-description" placeholder="Descrição da Tarefa">
+            <button type="submit" id="addTaskButton" aria-label="Adicionar Tarefa">Adicionar Tarefa</button>
+        </form>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Título</th>
+                    <th scope="col">Descrição</th>
+                    <th scope="col">Ações</th>
+                </tr>
+            </thead>
+            <tbody id="task-list">
+            </tbody>
+        </table>
+        <dialog id="editTaskModal">
+            <form class="modal-form" id="editTaskForm">
+                <input type="hidden" id="editTaskId">
+                <div>
+                    <label for="editTaskTitle">Título:</label>
+                    <input type="text" id="editTaskTitle">
+                </div>
+                <div>
+                    <label for="editTaskDescription">Descrição:</label>
+                    <input type="text" id="editTaskDescription">
+                </div>
+                <button onclick="submitEditTask(event)">Salvar Alterações</button>
+                <button type="button" id="closeModal">Fechar</button>
+            </form>
+        </dialog>
+    </main>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="/app.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const taskForm = document.getElementById('task-form');
+            taskForm.addEventListener('submit', function (event) {
+                event.preventDefault();
+                addTask();
+            });
+        });
+    </script>
+</body>
+
+</html>
